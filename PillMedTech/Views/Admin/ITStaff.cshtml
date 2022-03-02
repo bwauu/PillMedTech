@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Logger>
 
 <nav>
   <p>
@@ -18,19 +18,19 @@
       <th>Händelse</th>
     </tr>
     
-    @*TODO: Vilken poco-klass har du för loggningen av viktiga händelser? Lägg till modellen ovan och byt ut frågetecknet. Ta sedan bort denna rad.*@
-    @*foreach (??? in Model)
+   
+    @foreach (Logger log in Model)
 
 
     {
       <tr>
-        <td>@??.Time</td>
-        <td>@??.EmployeeId</td>
-        <td>@??.Ip</td>
-        <td>@??.Action</td>
+        <td>@log.Time</td>
+        <td>@log.EmployeeId</td>
+        <td>@log.Ip</td>
+        <td>@log.Action</td>
       </tr>
     }
-        *@
+
 
   </table>
 </main>

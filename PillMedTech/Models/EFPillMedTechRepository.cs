@@ -96,25 +96,93 @@ namespace PillMedTech.Models
  
         public void Log(DateTime createdAt, string IPAdress, string user, string action)
         {
-
-
+            string stringedTime = createdAt.ToString();
             // disconnected existing entity 
-            var logger = new Logger() { Time = createdAt, Ip = IPAdress, EmployeeId = user, Action = action};
-
-            using (loggContext)
-            {
-                loggContext.Entry(logger).State = logger.Id == 0 ? EntityState.Added : EntityState.Modified;
-
-                loggContext.SaveChanges();
-            }
+            var logger = new Logger() { Time = (stringedTime), Ip = (IPAdress), EmployeeId = (user), Action = (action) };
+            loggContext.Add(logger);
+            loggContext.SaveChanges();
 
         }
 
         public IQueryable<Logger> ViewLog()
         {
 
-         return (IQueryable<Logger>)loggContext.Loggers;
+            List<Logger> UnEncryptedList = new List<Logger>();
+            var logList = from log in Logging
+                       orderby log.Time
+                       select log;
+            var result = Logging.Where(log => !logList.Any(l2 => l2.Id == log.Id));
+            return result;
+
         }
    
     }
 }
+
+/*
+  // 1 och 2
+        //Lägger till Loggar till databasen och krypterar all infromation
+        // Checklista 1.1, 1.2, 7.1, 7.2, 7.3, 7.4
+        // checklista 6.1, 6.2, 6.3
+    public void Log(DateTime createdAt, string IPAdress, string user, string action)
+    {
+            string createdAtString = createdAt.ToString();
+            Logger logger = new Logger
+            {
+                Time = protector.Protect(createdAtString),
+                Ip = protector.Protect(IPAdress),
+                EmployeeId = protector.Protect(user),
+                Action = protector.Protect(action)
+            };
+            loggContext.Loggers.Add(logger);
+            loggContext.SaveChanges();
+    }
+        //Här tar jag bort så att datan på databasen ej är krypterad och skickar den till ITStaff view
+        public List<Logger> ViewLog()
+        {
+
+            List<Logger> UnEncryptedList = new List<Logger>();
+
+            var list = from s in Logging
+                       orderby s.Time
+                       select s;
+
+            try {
+                foreach (var item in list)
+                {
+                    try
+                    {
+                        UnEncryptedList.Add(new Logger
+                        {
+                            Time = protector.Unprotect(item.Time),
+                            Ip = protector.Unprotect(item.Ip),
+                            EmployeeId = protector.Unprotect(item.EmployeeId),
+                            Action = protector.Unprotect(item.Action)
+                        });
+                    }
+                    catch
+                    {
+                        UnEncryptedList.Add(new Logger
+                        {
+                            Time = "Något gick fel",
+                            Ip = "Något gick fel",
+                            EmployeeId = "Något gick fel",
+                            Action = "Något gick fel"
+                        });
+                    }
+                }
+            }
+            catch {
+                UnEncryptedList.Add(new Logger
+                {
+                    Time = "Något gick fel",
+                    Ip = "Något gick fel",
+                    EmployeeId = "Något gick fel",
+                    Action = "Något gick fel"
+                });
+            }
+            //Sorterar listan så att de senaste händelserna händer högst upp
+            List<Logger> UnEncryptedList2 = UnEncryptedList.OrderByDescending(er => er.Time).ToList();
+            return UnEncryptedList2;
+        } 
+ */

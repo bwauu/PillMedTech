@@ -10,7 +10,7 @@ namespace PillMedTech.Models
     {
         [Key]
         public int Id { get; set; }
-        public DateTime Time { get; set; }
+        public string Time { get; set; }
         public string EmployeeId { get; set; }
         public string Ip { get; set; }
         public string Action { get; set; }
