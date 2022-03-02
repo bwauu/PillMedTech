@@ -113,7 +113,7 @@ namespace PillMedTech.Models
         public IQueryable<Logger> ViewLog()
         {
 
-         return (IQueryable<Logger>)loggContext.Loggers.ToList();
+         return (IQueryable<Logger>)loggContext.Loggers;
         }
    
     }
