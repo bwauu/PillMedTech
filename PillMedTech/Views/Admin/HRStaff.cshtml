@@ -1,0 +1,23 @@
+﻿@model SickErrand
+<nav>
+  <p>
+    <a asp-controller="Account" asp-action="Login">Login</a> / <strong>HR sökning av anställd</strong>
+    <a asp-controller="Account" asp-action="Logout" class="right">Logga ut</a>
+  </p>
+</nav>
+
+<main>
+  <h2>Söka på anställningsnummer</h2>
+  <form asp-controller="Admin" asp-action="EmployeeInfo" method="post">
+    <div asp-validation-summary="All"></div>
+    <p>
+      <label asp-for="EmployeeID" class="text-black">
+        Skriv in anställningsnummer: <span class="text-danger">*</span>
+      </label>
+      <input asp-for="EmployeeID">
+    </p>
+    <p>
+      <input type="submit" class="btn" value="Sök">
+    </p>
+  </form>
+</main>

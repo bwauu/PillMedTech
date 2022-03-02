@@ -1,0 +1,36 @@
+﻿
+
+<nav>
+  <p>
+    <a asp-controller="Account" asp-action="Login">Login</a> / <strong>Loggfil</strong>
+    <a asp-controller="Account" asp-action="Logout" class="right">Logga ut</a>
+  </p>
+</nav>
+
+<main>
+  <h2>Loggfiler</h2>
+
+  <table>
+    <tr>
+      <th>Datum</th>
+      <th>AnställningsID</th>
+      <th>IP-adress</th>
+      <th>Händelse</th>
+    </tr>
+    
+    @*TODO: Vilken poco-klass har du för loggningen av viktiga händelser? Lägg till modellen ovan och byt ut frågetecknet. Ta sedan bort denna rad.*@
+    @*foreach (??? in Model)
+
+
+    {
+      <tr>
+        <td>@??.Time</td>
+        <td>@??.EmployeeId</td>
+        <td>@??.Ip</td>
+        <td>@??.Action</td>
+      </tr>
+    }
+        *@
+
+  </table>
+</main>

@@ -1,0 +1,28 @@
+﻿@model LoginModel
+
+<nav>
+  <p>
+    <a asp-controller="Home" asp-action="Index">Start</a> / <strong>Inloggning</strong>
+  </p>
+</nav>
+
+<main>
+  <h2>Inloggning</h2>
+  <form asp-controller="Account" asp-action="Login" method="post">
+    <div asp-validation-summary="All"></div>
+    <p>
+      <label asp-for="UserName" class="text-black"></label><span class="text-danger">*</span>
+      <input asp-for="UserName">
+    </p>
+    <p>
+      <label asp-for="Password" class="text-black"></label><span class="text-danger">*</span>
+      <input asp-for="Password">
+    </p>
+    <p>
+      <input type="hidden" asp-for="ReturnUrl" />
+    </p>
+    <p>
+      <input type="submit" class="btn" value="Logga in">
+    </p>
+  </form>
+</main>
