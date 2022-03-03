@@ -25,7 +25,7 @@ namespace PillMedTech.Models
     void ReportSick(SickErrand errand);
     
     void Log(DateTime createdAt, string IPAdress, string user, string action);
-    IQueryable<Logger> ViewLog();
+    List<Logger> ViewLog();
     
   }
 }

@@ -104,18 +104,28 @@ namespace PillMedTech.Models
 
         }
 
-        public IQueryable<Logger> ViewLog()
+        //Här tar jag bort så att datan på databasen ej är krypterad och skickar den till ITStaff view
+        public List<Logger> ViewLog()
         {
-
             List<Logger> UnEncryptedList = new List<Logger>();
             var logList = from log in Logging
-                       orderby log.Time
-                       select log;
-            var result = Logging.Where(log => !logList.Any(l2 => l2.Id == log.Id));
-            return result;
+                          orderby log.Time
+                          select log;
+            foreach(var log in logList)
+            {
+                UnEncryptedList.Add(new Logger
+                {
+                    Time = protector.Unprotect(log.Time),
+                    Ip = protector.Unprotect(log.Ip),
+                    EmployeeId = protector.Unprotect(log.EmployeeId),
+                    Action = protector.Unprotect(log.Action)
+                });
+            }
 
+            
+            return UnEncryptedList;
         }
-   
+
     }
 }
 
