@@ -4,8 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PillMedTech.Models
 {
-  public class AppIdentityDbContext : IdentityDbContext<IdentityUser>
-  {
-    public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options) : base(options) { }
-  }
+    /* 
+     1. Datalagring 
+        1.1. Olika databaser som hanterar olika typer av data (ex. inloggningsuppgifter, loggar, datahanteringen etc).
+     */
+
+    public class AppIdentityDbContext : IdentityDbContext<IdentityUser>
+    {
+        public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options) : base(options) { }
+    }
 }
